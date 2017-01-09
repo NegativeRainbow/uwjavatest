@@ -3,12 +3,13 @@ package com.tedneward.example;
 import java.beans.*;
 import java.util.*;
 
-public class Person {
+public class Person extends comparable<Person> {
   private int age;
   private String name;
   private double salary;
   private String ssn;
   private boolean propertyChangeFired = false;
+  private static int numPeople;
   
   public Person() {
     this("", 0, 0.0d);
@@ -18,6 +19,45 @@ public class Person {
     name = n;
     age = a;
     salary = s;
+    numPeople++;
+  }
+  
+  public int getAge(){
+   return age;
+  }
+  
+  public void setAge(int n){
+   if(n < 0){
+      throw new IllegalArgumentException();
+   }
+   this.age = n;
+  }
+  
+  public String getName(){
+   return name;
+  }
+  
+  public void setName(String s){
+   if(s == null){
+      throw new IllegalArgumentException();
+   }
+   this.name = s;
+  }
+    
+  public double getSalary(){
+   return salary;
+  }
+  
+  public void setSalary(double d) {
+   this.salary = d;
+  }
+  
+  public int count(){
+   return numPeople;
+  }
+  
+  public String getSSN(){
+   return ssn;
   }
 
   public void setSSN(String value) {
@@ -44,7 +84,33 @@ public class Person {
   }
   
   public String tostring() {
-    return "{{FIXME}}";
+    return "[Person name:" + name + " age:" + age + " salary:" + salary + "]";
+  }
+  
+  public boolean equals(Person other){
+   if(this.name.equals(other.name) && this.age == other.age){
+      return true;
+   } else {
+      return false;
+   }
+  }
+  
+  public int compareTo(Person other) {
+   return this.salary - other.salary;
+  }
+
+  public static ArrayList getNewardFamily(){
+   ArrayList<Person> family = new ArrayList<Person>;
+   family.add(new Person("Ted", 41, 250000));
+   family.add(new Person("Charlotte", 43, 150000));
+   family.add(new Person("Michael", 22, 10000));
+   family.add(new Person("Matthew", 15, 0));
+  }
+  
+  public class AgeComparator extends Comparator{
+   public int compare(Person p1, Person p2) {
+      return p2.age - p1.age;
+   }
   }
 
   // PropertyChangeListener support; you shouldn't need to change any of
