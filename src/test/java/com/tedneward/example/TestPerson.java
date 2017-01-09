@@ -87,6 +87,16 @@ public class TestPerson {
     assertEquals(new Person("Matthew", 15, 0), people.get(3));
   }
   
+  //Had to create propertychangelistener class outside of a method???
+  //I have never used these before
+  public class SSNPropertyChangeListener implements PropertyChangeListener{
+   public void propertyChange(PropertyChangeEvent pce){
+    assertEquals("ssn", pce.getPropertyName());
+    assertEquals("", pce.getOldValue());
+    assertEquals("012-34-5678", pce.getNewValue());
+   }
+  }
+  
   @Test
   public void catchPropertyChange() {
     Person ted = new Person("Ted", 43, 250000);
@@ -94,13 +104,7 @@ public class TestPerson {
     // ============ YOUR CHANGES BEGIN HERE
     // Call addPropertyChangeListener with a PropertyChangedListener
     // that has the following code in it:
-    public PersonPropertyChangeListener implements PropertyChangeListener {
-      public void propertyChange(PropertyChangeEvent pce) {
-          assertEquals("ssn", pce.getPropertyName());
-          assertEquals("", pce.getOldValue());
-          assertEquals("012-34-5678", pce.getNewValue());
-      }
-    ted.addPropertyChangeListener(new PersonPropertyChangeListener);
+    ted.addPropertyChangeListener(new SSNPropertyChangeListener());
     // ============ YOUR CHANGES END HERE
     
     assertEquals(false, ted.getPropertyChangeFired());

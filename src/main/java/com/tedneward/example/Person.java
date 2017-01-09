@@ -3,7 +3,7 @@ package com.tedneward.example;
 import java.beans.*;
 import java.util.*;
 
-public class Person extends comparable<Person> {
+public class Person implements Comparable<Person> {
   private int age;
   private String name;
   private double salary;
@@ -96,18 +96,20 @@ public class Person extends comparable<Person> {
   }
   
   public int compareTo(Person other) {
-   return this.salary - other.salary;
+    double difference = this.salary - other.salary;
+    return (int)Math.round(difference);
   }
 
   public static ArrayList getNewardFamily(){
-   ArrayList<Person> family = new ArrayList<Person>;
+   ArrayList<Person> family = new ArrayList<Person>();
    family.add(new Person("Ted", 41, 250000));
    family.add(new Person("Charlotte", 43, 150000));
    family.add(new Person("Michael", 22, 10000));
    family.add(new Person("Matthew", 15, 0));
+   return family;
   }
   
-  public class AgeComparator extends Comparator{
+  public static class AgeComparator implements Comparator<Person>{
    public int compare(Person p1, Person p2) {
       return p2.age - p1.age;
    }
