@@ -83,16 +83,12 @@ public class Person implements Comparable<Person> {
     return age + 10;
   }
   
-  public String tostring() {
+  public String toString() {
     return "[Person name:" + name + " age:" + age + " salary:" + salary + "]";
   }
   
   public boolean equals(Person other){
-   if(this.name.equals(other.name) && this.age == other.age){
-      return true;
-   } else {
-      return false;
-   }
+   return this.name.equals(other.name) && this.age == other.age;
   }
   
   public int compareTo(Person other) {
