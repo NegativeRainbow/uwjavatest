@@ -19,6 +19,7 @@ public class Person implements Comparable<Person> {
     name = n;
     age = a;
     salary = s;
+    ssn = "";
     numPeople++;
   }
   
@@ -87,12 +88,18 @@ public class Person implements Comparable<Person> {
     return "[Person name:" + name + " age:" + age + " salary:" + salary + "]";
   }
   
-  public boolean equals(Person other){
-   return this.name.equals(other.name) && this.age == other.age;
+  @Override
+  public boolean equals(Object other){
+   if(other instanceof Person){
+      Person p = (Person)other;
+      return this.name.equals(p.name) && this.age == p.age;
+   }
+   return false;
   }
   
+  @Override
   public int compareTo(Person other) {
-    double difference = this.salary - other.salary;
+    double difference = other.salary - this.salary;
     return (int)Math.round(difference);
   }
 
@@ -107,7 +114,7 @@ public class Person implements Comparable<Person> {
   
   public static class AgeComparator implements Comparator<Person>{
    public int compare(Person p1, Person p2) {
-      return p2.age - p1.age;
+      return p1.age - p2.age;
    }
   }
 
